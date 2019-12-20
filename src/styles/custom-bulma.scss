@@ -1,7 +1,11 @@
 @import "../../node_modules/bulma/sass/utilities/_all.sass";
-
+// color palette: https://colorhunt.co/palette/2763
 // set all the custom sass variables here
-$title-color: purple;
+$title-color: white;
+$title-size: $size-5;
+
+$footer-padding: 0.3em;
+$footer-background-color: rgb(249, 249, 249);
 
 @import "~bulma";
 @import "~buefy/src/scss/buefy";
