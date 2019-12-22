@@ -1,12 +1,19 @@
 <template>
   <div id="app" class="tile is-ancestor is-gapless">
     <div class="tile menu-width is-gapless">
-      <Menu></Menu>
+      <Menu
+        v-on:change-active-guide="changeActiveGuide"
+        v-bind:activeGuide="activeGuide"
+        v-bind:menuSteps="menuSteps"
+      ></Menu>
     </div>
     <div class="tile is-vertical is-gapless">
       <div class="map-container">
         <div class="is-6 guide">
-          <Guide></Guide>
+          <Guide
+            v-bind:activeGuide="activeGuide"
+            v-bind:menuSteps="menuSteps"
+          ></Guide>
         </div>
         <div class="is-6 map">
           <p>this is the map</p>
@@ -29,6 +36,34 @@ export default {
     Guide,
     Footer,
     Menu
+  },
+  data: function() {
+    return {
+      activeGuide: "intro",
+      menuSteps: [
+        {
+          text: "Introduction",
+          type: "intro"
+        },
+        {
+          text: "Projection Surfaces",
+          type: "surfaces"
+        },
+        {
+          text: "Map Distortions",
+          type: "distortions"
+        },
+        {
+          text: "Map Projections",
+          type: "projections"
+        }
+      ]
+    };
+  },
+  methods: {
+    changeActiveGuide: function(type) {
+      this.activeGuide = type;
+    }
   }
 };
 </script>

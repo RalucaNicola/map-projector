@@ -1,11 +1,11 @@
 <template>
-  <button @click="onClick">{{ text }}</button>
+  <button @click="$emit('change-active-guide', type)" v-bind:class="{ selected: isSelected }">{{ text }}</button>
 </template>
 
 <script>
 export default {
   name: "menu-button",
-  props: ["text", "onClick"]
+  props: ["text", "type", "isSelected"]
 };
 </script>
 
@@ -21,7 +21,7 @@ button {
   border: none;
 }
 
-button:hover {
+button:hover, button.selected {
   color: #00adb5;
 }
 

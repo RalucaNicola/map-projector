@@ -1,11 +1,13 @@
 <template>
-  <div class="menu-element">
+  <div class="menu">
     <h1 class="title">Map Projector</h1>
     <MenuButton
       v-for="step in menuSteps"
       :key="step.type"
       :text="step.text"
-      :onClick="setGuide(step.type)"
+      :type="step.type"
+      :isSelected="activeGuide === step.type"
+      v-on:change-active-guide="setGuide"
     ></MenuButton>
   </div>
 </template>
@@ -13,44 +15,21 @@
 <script>
 import MenuButton from "./MenuButton.vue";
 export default {
-  name: "menu",
+  name: "side-menu",
   components: {
     MenuButton
   },
-  data: function() {
-    return {
-      menuSteps: [
-        {
-          text: "Introduction",
-          type: "intro"
-        },
-        {
-          text: "Projection Surfaces",
-          type: "surfaces"
-        },
-        {
-          text: "Map Distortions",
-          type: "distortions"
-        },
-        {
-          text: "Map Projections",
-          type: "projections"
-        }
-      ]
-    };
-  },
+  props: ["activeGuide", "menuSteps"],
   methods: {
     setGuide: function(type) {
-      return function() {
-        console.log(type);
-      };
+      this.$emit("change-active-guide", type);
     }
   }
 };
 </script>
 
 <style scoped>
-.menu-element {
+.menu {
   background-color: #222831;
   padding: 0.3em;
   color: white;
