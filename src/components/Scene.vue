@@ -9,7 +9,7 @@ export default {
     return {
       camera: null,
       scene: new THREE.Scene(),
-      renderer: new THREE.WebGLRenderer()
+      renderer: new THREE.WebGLRenderer({ antialias: true })
     };
   },
   mounted() {
