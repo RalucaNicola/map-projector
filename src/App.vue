@@ -16,7 +16,7 @@
           ></Guide>
         </div>
         <div class="map">
-          <Scene></Scene>
+          <SceneComponent></SceneComponent>
         </div>
       </div>
       <div>
@@ -30,14 +30,14 @@
 import Guide from "./components/Guide.vue";
 import Footer from "./components/Footer.vue";
 import Menu from "./components/Menu.vue";
-import Scene from "./components/Scene.vue";
+import SceneComponent from "./components/SceneComponent.vue";
 export default {
   name: "app",
   components: {
     Guide,
     Footer,
     Menu,
-    Scene
+    SceneComponent
   },
   data: function() {
     return {
