@@ -7,7 +7,7 @@
       :text="step.text"
       :type="step.type"
       :isSelected="activeGuide === step.type"
-      v-on:change-active-guide="setGuide"
+      v-on:change-active-guide="setActiveGuide"
     ></MenuButton>
   </div>
 </template>
@@ -21,8 +21,8 @@ export default {
   },
   props: ["activeGuide", "menuSteps"],
   methods: {
-    setGuide: function(type) {
-      this.$emit("change-active-guide", type);
+    setActiveGuide: function(type) {
+      this.$store.commit("changeActiveGuide", type);
     }
   }
 };

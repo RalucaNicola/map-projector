@@ -2,7 +2,6 @@
   <div id="app" class="tile is-ancestor is-gapless">
     <div class="tile menu-width is-gapless">
       <Menu
-        v-on:change-active-guide="changeActiveGuide"
         v-bind:activeGuide="activeGuide"
         v-bind:menuSteps="menuSteps"
       ></Menu>
@@ -41,7 +40,6 @@ export default {
   },
   data: function() {
     return {
-      activeGuide: "intro",
       menuSteps: [
         {
           text: "Introduction",
@@ -62,9 +60,9 @@ export default {
       ]
     };
   },
-  methods: {
-    changeActiveGuide: function(type) {
-      this.activeGuide = type;
+  computed: {
+    activeGuide() {
+      return this.$store.state.activeGuide;
     }
   }
 };
