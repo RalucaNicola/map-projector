@@ -3,23 +3,33 @@
 </template>
 
 <script>
-  import * as THREE from "three";
-import GLScene from "../scene-utils/GLScene.js";
+import * as THREE from "three";
+import GLCanvas from "../scene-utils/GLCanvas.js";
+import Earth from "../scene-utils/Earth.js";
 
 export default {
   mounted() {
-    const scene = new GLScene(this.$refs.scene);
-
-    const clock = new THREE.Clock();
-    const animate = function() {
-      let delta = clock.getDelta();
-      requestAnimationFrame(animate);
-      scene.update(delta);
+    this.canvas = new GLCanvas(this.$refs.scene);
+    this.earth = new Earth(this.canvas.scene);
+    this.clock = new THREE.Clock();
+    window.addEventListener(
+      "resize",
+      function() {
+        this.canvas.resize();
+      }.bind(this)
+    );
+    this.animate();
+  },
+  methods: {
+    animate() {
+      let delta = this.clock.getDelta();
+      this.canvas.update(delta);
+      requestAnimationFrame(
+        function() {
+          this.animate();
+        }.bind(this)
+      );
     }
-    animate();
-    window.addEventListener("resize", function() {
-      scene.resize();
-    });
   }
 };
 </script>
