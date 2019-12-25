@@ -9,14 +9,14 @@
     </div>
     <div class="tile is-vertical is-gapless">
       <div class="map-container">
-        <div class="is-6 guide">
+        <div class="guide">
           <Guide
             v-bind:activeGuide="activeGuide"
             v-bind:menuSteps="menuSteps"
           ></Guide>
         </div>
-        <div class="is-6 map">
-          <p>this is the map</p>
+        <div class="map">
+          <SceneComponent></SceneComponent>
         </div>
       </div>
       <div>
@@ -30,12 +30,14 @@
 import Guide from "./components/Guide.vue";
 import Footer from "./components/Footer.vue";
 import Menu from "./components/Menu.vue";
+import SceneComponent from "./components/SceneComponent.vue";
 export default {
   name: "app",
   components: {
     Guide,
     Footer,
-    Menu
+    Menu,
+    SceneComponent
   },
   data: function() {
     return {
@@ -90,8 +92,15 @@ body,
 .map {
   flex: 0.5;
   height: 100%;
+}
+
+.map {
+  overflow: hidden;
+}
+
+.guide {
+  padding: 0.75em;
   overflow: auto;
-  padding: 0.7em;
 }
 
 .map-container {
