@@ -8,7 +8,7 @@ class GLCanvas {
     const width = container.clientWidth;
     const height = container.clientHeight;
     this.scene = new THREE.Scene();
-    this.scene.background = new THREE.Color("#e5efff");
+    this.scene.background = new THREE.Color("#ffffff");
 
     this.camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
     this.camera.position.y = 5;
@@ -24,10 +24,13 @@ class GLCanvas {
       this.camera,
       this.renderer.domElement
     );
-    this.trackballControls.addEventListener("change", function() {
-      const p = this.camera.position;
-      this.light.position.set(p.x, p.y + 1, p.z);
-    });
+    this.trackballControls.addEventListener(
+      "change",
+      function() {
+        const p = this.camera.position;
+        this.light.position.set(p.x, p.y + 1, p.z);
+      }.bind(this)
+    );
 
     this.light = new THREE.DirectionalLight(0xeeeeee);
     this.light.position.set(1, 1, 1).normalize();
