@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import * as TrackballControls from "three-trackballcontrols";
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 
 class GLCanvas {
   constructor(container) {
@@ -20,11 +20,11 @@ class GLCanvas {
 
     this.gl = this.renderer.getContext();
 
-    this.trackballControls = new TrackballControls(
+    this.orbitControls = new OrbitControls(
       this.camera,
       this.renderer.domElement
     );
-    this.trackballControls.addEventListener(
+    this.orbitControls.addEventListener(
       "change",
       function() {
         const p = this.camera.position;
@@ -51,7 +51,7 @@ class GLCanvas {
 
   update(delta) {
     this.renderer.render(this.scene, this.camera);
-    this.trackballControls.update(delta);
+    this.orbitControls.update(delta);
   }
 }
 
