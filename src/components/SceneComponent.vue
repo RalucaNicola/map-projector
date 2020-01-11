@@ -39,6 +39,7 @@ export default {
         this.canvas.resize();
       }.bind(this)
     );
+    this.initializeStoreProps();
     this.animate();
   },
   computed: {
@@ -86,7 +87,42 @@ export default {
           this.animate();
         }.bind(this)
       );
+    },
+    initializeStoreProps() {
+      const state = this.$store.state;
+
+      this.earth.toggleTissotTexture(state.tissotEnabled);
+      this.surface.toggleTissotTexture(state.tissotEnabled);
+      this.earth.toggleCountriesTexture(state.countriesEnabled);
+      this.surface.toggleCountriesTexture(state.countriesEnabled);
+      this.earth.toggleGridTexture(state.gridEnabled);
+      this.surface.toggleGridTexture(state.gridEnabled);
+
+      const { axisLength, offset, topRadius, bottomRadius } = state.surface;
+      this.surface.setAxisLength(axisLength);
+      this.surface.setGeometryOffset(offset);
+      this.surface.setTopRadius(topRadius);
+      this.surface.setBottomRadius(bottomRadius);
+
+      const { scale, latitude, longitude, offset: cOffset } = state.projectionCenter;
+      this.projectionCenter.reconstructTorus(scale);
+      this.projectionCenter.setLatitude(latitude);
+      this.projectionCenter.setLongitude(longitude);
+      this.projectionCenter.setOffset(cOffset);
+      console.log(cOffset);
     }
+  },
+  created() {
+    this.$store.subscribe((mutation, state) => {
+      switch (mutation.type) {
+        case "changeSurfaceAxisLength":
+          this.surface.setAxisLength(state.surface.axisLength);
+        break;
+        case "changeSurfaceOffset":
+          this.surface.setGeometryOffset(state.surface.offset);
+        break;
+      }
+    });
   }
 };
 </script>

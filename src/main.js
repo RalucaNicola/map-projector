@@ -14,7 +14,19 @@ const store = new Vuex.Store({
     activeGuide: "intro",
     gridEnabled: true,
     countriesEnabled: true,
-    tissotEnabled: true
+    tissotEnabled: false,
+    surface: {
+      axisLength: 0.01,
+      topRadius: 0.01,
+      bottomRadius: 4,
+      offset: 1
+    },
+    projectionCenter: {
+      scale: 0.01,
+      latitude: 0,
+      longitude: 90,
+      offset: 0
+    }
   },
   mutations: {
     changeActiveGuide(state, activeGuide) {
@@ -28,6 +40,12 @@ const store = new Vuex.Store({
     },
     toggleTissot(state) {
       state.tissotEnabled = !state.tissotEnabled;
+    },
+    changeSurfaceAxisLength(state, length) {
+      state.surface.axisLength = length;
+    },
+    changeSurfaceOffset(state, offset) {
+      state.surface.offset = offset;
     }
   }
 });
