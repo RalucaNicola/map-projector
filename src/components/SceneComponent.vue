@@ -19,11 +19,19 @@
 import * as THREE from "three";
 import GLCanvas from "../scene-utils/GLCanvas.js";
 import Earth from "../scene-utils/Earth.js";
+import Surface from "../scene-utils/Surface.js";
+import ProjectionCenter from "../scene-utils/ProjectionCenter.js";
 
 export default {
   mounted() {
     this.canvas = new GLCanvas(this.$refs.glcanvas);
     this.earth = new Earth(this.canvas.scene);
+    this.surface = new Surface(this.canvas.scene, this.earth);
+    this.projectionCenter = new ProjectionCenter(this.canvas.scene);
+    this.surface.setProjectionTorusParams(
+      this.projectionCenter.scale,
+      this.projectionCenter.lightCenter.matrixWorld
+    );
     this.clock = new THREE.Clock();
     window.addEventListener(
       "resize",
@@ -40,7 +48,9 @@ export default {
       },
       set() {
         this.$store.commit("toggleGrid");
-        this.earth.toggleGridTexture(this.$store.state.gridEnabled);
+        const status = this.$store.state.gridEnabled;
+        this.earth.toggleGridTexture(status);
+        this.surface.toggleGridTexture(status);
       }
     },
     countriesEnabled: {
@@ -49,7 +59,9 @@ export default {
       },
       set() {
         this.$store.commit("toggleCountries");
-        this.earth.toggleCountriesTexture(this.$store.state.countriesEnabled);
+        const status = this.$store.state.countriesEnabled;
+        this.earth.toggleCountriesTexture(status);
+        this.surface.toggleCountriesTexture(status);
       }
     },
     tissotEnabled: {
@@ -58,7 +70,9 @@ export default {
       },
       set() {
         this.$store.commit("toggleTissot");
-        this.earth.toggleTissotTexture(this.$store.state.tissotEnabled);
+        const status = this.$store.state.tissotEnabled;
+        this.earth.toggleTissotTexture(status);
+        this.surface.toggleTissotTexture(status);
       }
     }
   },
@@ -66,6 +80,7 @@ export default {
     animate() {
       let delta = this.clock.getDelta();
       this.canvas.update(delta);
+      this.surface.update(delta);
       requestAnimationFrame(
         function() {
           this.animate();
