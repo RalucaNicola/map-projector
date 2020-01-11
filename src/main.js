@@ -4,6 +4,7 @@ import Buefy from "buefy";
 import App from "./App.vue";
 import "./registerServiceWorker";
 import "@/styles/custom-bulma.scss";
+import "@/styles/app-style.scss";
 
 Vue.config.productionTip = false;
 Vue.use(Vuex);
