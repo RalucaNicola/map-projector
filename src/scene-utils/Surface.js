@@ -632,6 +632,14 @@ class Surface {
     this.mesh.rotation.y = rot;
   }
 
+  setLatitude(lat) {
+    this.earthCenter.rotation.z = lat;
+  }
+
+  setLongitude(lon) {
+    this.earthCenter.rotation.y = lon;
+  }
+
   setProjectionTorusParams(scale, transformMatrix) {
     this.mesh.material.uniforms.projTorusScale.value = scale;
     this.mesh.material.uniforms.projTorusMatrix.value = transformMatrix;

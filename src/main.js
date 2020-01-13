@@ -44,6 +44,18 @@ const store = new Vuex.Store({
     changeSurfaceOffset(state, offset) {
       state.surface.offset = offset;
     },
+    changeSurfaceLatitude(state, latitude) {
+      state.surface.latitude = latitude;
+    },
+    changeSurfaceLongitude(state, longitude) {
+      state.surface.longitude = longitude;
+    },
+    changeSurfaceUpperRadius(state, radius) {
+      state.surface.topRadius = radius;
+    },
+    changeSurfaceLowerRadius(state, radius) {
+      state.surface.bottomRadius = radius;
+    },
     changePCenterOffset(state, offset) {
       state.projectionCenter.offset = offset;
     },
