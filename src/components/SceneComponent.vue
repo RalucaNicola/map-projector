@@ -3,6 +3,9 @@
     <div class="scene" ref="glcanvas"></div>
     <div class="scene-menu">
       <div class="scene-buttons">
+        <button class="button is-small is-primary" v-on:click="rollSurface">
+          {{ rollButtonText }}
+        </button>
         <button
           class="button is-small is-primary"
           v-on:click="resetProjectionParameters"
@@ -90,9 +93,21 @@ export default {
         const status = this.$store.state.tissotEnabled;
         this.toggleTissotTexture(status);
       }
+    },
+    rollButtonText: {
+      get() {
+        if (this.$store.state.surfaceState === "flat") {
+          return "Flatten";
+        } else {
+          return "Roll";
+        }
+      }
     }
   },
   methods: {
+    rollSurface() {
+      this.$store.commit("toggleSurfaceState");
+    },
     toggleTissotTexture(value) {
       this.earth.toggleTissotTexture(value);
       this.surface.toggleTissotTexture(value);
@@ -214,6 +229,13 @@ export default {
             this.lookAt(this.surface.mesh, 3);
           }
           break;
+        case "toggleSurfaceState":
+          if (state.surfaceState === "flat") {
+            this.surface.flatten();
+          } else if (state.surfaceState === "rolled") {
+            this.surface.roll();
+          }
+          break;
       }
     });
   }
@@ -241,5 +263,9 @@ canvas {
 
 .scene-buttons {
   padding-bottom: 1em;
+}
+
+.scene-buttons > button:not(:last-child) {
+  margin-right: 1em;
 }
 </style>

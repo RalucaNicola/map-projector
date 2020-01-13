@@ -39,6 +39,7 @@
           :min="0.01"
           :max="4"
           :step="0.1"
+          :disabled="disabled"
           v-model="surfaceUpperRadius"
         >
           <template v-for="val in [0.01, 1, 2, 3, 4]">
@@ -52,6 +53,7 @@
           :min="0.01"
           :max="4"
           :step="0.1"
+          :disabled="disabled"
           v-model="surfaceLowerRadius"
         >
           <template v-for="val in [0.01, 1, 2, 3, 4]">
@@ -65,6 +67,7 @@
           :min="0"
           :max="8"
           :step="0.1"
+          :disabled="disabled"
           v-model="surfaceAxisLength"
         >
           <template v-for="val in [0, 2, 4, 6, 8]">
@@ -78,6 +81,7 @@
           :min="-2"
           :max="2"
           :step="0.1"
+          :disabled="disabled"
           v-model="surfaceOffset"
         >
           <template v-for="val in [-2, -1, 0, 1, 2]">
@@ -98,6 +102,7 @@
           :min="-90"
           :max="90"
           :step="1"
+          :disabled="disabled"
           v-model="latitude"
         >
           <template v-for="val in [-90, -45, 0, 45, 90]">
@@ -111,6 +116,7 @@
           :min="-180"
           :max="180"
           :step="1"
+          :disabled="disabled"
           v-model="longitude"
         >
           <template v-for="val in [-180, -90, 0, 90, 180]">
@@ -137,6 +143,7 @@
           :min="-90"
           :max="90"
           :step="1"
+          :disabled="disabled"
           v-model="rotation"
         >
           <template v-for="val in [-90, -45, 0, 45, 90]">
@@ -263,6 +270,11 @@ export default {
       },
       set(value) {
         this.$store.commit("changeSurfaceLongitude", value);
+      }
+    },
+    disabled: {
+      get() {
+        return this.$store.state.surfaceState === "flat";
       }
     }
   }

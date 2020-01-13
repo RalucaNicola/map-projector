@@ -18,6 +18,7 @@ const store = new Vuex.Store({
     countriesEnabled: true,
     tissotEnabled: false,
     cameraPosition: null,
+    surfaceState: "rolled",
     surface: {
       ...initialParameters.surface
     },
@@ -64,6 +65,10 @@ const store = new Vuex.Store({
     },
     setCamera(state, cameraPosition) {
       state.cameraPosition = cameraPosition;
+    },
+    toggleSurfaceState(state) {
+      const surfaceState = state.surfaceState;
+      state.surfaceState = surfaceState === "rolled" ? "flat" : "rolled";
     }
   }
 });
