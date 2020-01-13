@@ -6,12 +6,16 @@
       behind cartographic projections. You'll learn about the main elements of a
       map projection and the parameters that influence the projection.
     </p>
-    <p class="content is-small">
-      Before we start, here are some instructions on how to use this web
+    <div class="box">
+      💡 Before we start, here are some instructions on how to use this web
       application: to navigate in the 3D scene, use the left mouse button to
       rotate, the right mouse button to pan and the middle mouse button to zoom.
-      If you want to restore the default settings, use the Reset button.
-    </p>
+      If you want to restore the default settings, use the Reset button. The
+      parts of the text that are
+      <span class="highlight">highlighted with a blue background</span>
+      are interactive, you can click on them to get a visual representation in
+      the 3D scene.
+    </div>
     <p>
       A common approach to construct map projections makes use of three
       geometric objects:
@@ -62,15 +66,24 @@
     <p>
       The position of the projection center is an important aspect when
       constructing map projections. With this slider you can adjust the offset
-      value of the projection center. Observe how different positions of the
-      projection center change the resulting projection and the geometry of the
-      rays. Now that you learned the basics of how map projections are
-      constructed, you can start learning more in depth about projection
-      surfaces.
+      value of the projection center:
+    </p>
+    <div class="slider-content">
+      <b-slider size="is-small" :min="-2" :max="2" :step="0.1">
+        <template v-for="val in [-2, -1, 0, 1, 2]">
+          <b-slider-tick :value="val" :key="val">{{ val }}</b-slider-tick>
+        </template>
+      </b-slider>
+    </div>
+    <p>
+      Observe how different positions of the projection center change the
+      resulting projection and the geometry of the rays. Now that you learned
+      the basics of how map projections are constructed, you can start learning
+      more in depth about projection surfaces.
     </p>
     <div class="content" style="text-align: center">
       <button class="button is-small">
-        Projection surfaces
+        Next: Projection surfaces
       </button>
     </div>
   </div>

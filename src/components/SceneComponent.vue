@@ -104,12 +104,16 @@ export default {
       this.surface.setTopRadius(topRadius);
       this.surface.setBottomRadius(bottomRadius);
 
-      const { scale, latitude, longitude, offset: cOffset } = state.projectionCenter;
+      const {
+        scale,
+        latitude,
+        longitude,
+        offset: cOffset
+      } = state.projectionCenter;
       this.projectionCenter.reconstructTorus(scale);
       this.projectionCenter.setLatitude(latitude);
       this.projectionCenter.setLongitude(longitude);
       this.projectionCenter.setOffset(cOffset);
-      console.log(cOffset);
     }
   },
   created() {
@@ -117,10 +121,10 @@ export default {
       switch (mutation.type) {
         case "changeSurfaceAxisLength":
           this.surface.setAxisLength(state.surface.axisLength);
-        break;
+          break;
         case "changeSurfaceOffset":
           this.surface.setGeometryOffset(state.surface.offset);
-        break;
+          break;
       }
     });
   }

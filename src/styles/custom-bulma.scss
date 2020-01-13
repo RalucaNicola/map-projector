@@ -1,11 +1,13 @@
+$turquoise: hsl(183, 100%, 35%);
 @import "../../node_modules/bulma/sass/utilities/_all.sass";
 @import url('https://fonts.googleapis.com/css?family=Raleway&display=swap');
 
 // color palette: https://colorhunt.co/palette/2763
 // set all the custom sass variables here
+
 $title-color: white;
 $title-size: $size-5;
-$primary: hsl(183, 100%, 35%);
+
 
 $family-primary: "Raleway", sans-serif;
 $text: rgba(0, 0, 0, 0.65);
@@ -15,5 +17,6 @@ $footer-padding: 0.3em;
 $footer-background-color: rgb(249, 249, 249);
 
 @import "~bulma";
+$slider-track-background: $turquoise;
 @import "~buefy/src/scss/buefy";
 
