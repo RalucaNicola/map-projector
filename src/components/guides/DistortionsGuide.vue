@@ -167,5 +167,20 @@
         <button onclick="openTab('tut3-button', 'tut3')">List of Map Projections</button>
       </div>
     </div>
+
+    <div class="content">
+      <button class="button is-small is-left" @click="$emit('change-guide-before', guideIndex)">
+        Previous: Projection surfaces
+      </button>
+      <button class="button is-small is-right" @click="$emit('change-guide-after', guideIndex)">
+        Next: Map projections
+      </button>
+    </div>
   </div>
 </template>
+
+<script>
+export default {
+  props: ["guideIndex"]
+};
+</script>

@@ -30,7 +30,16 @@ Adjust the "lat" and "lon" values under the "orientation" section of the control
         Cone
       </button>
       <button onclick="tutorialControls.constructCylinder()">Cylinder</button>
-    </div>While the plane is flat by default and hence can be used as a map out-of-the-box once the projection has been calculated, the cylinder and the cone need to be unrolled first to obtain their flat, two-dimensional form. To construct the flat representation based on the current orientation, use the "unroll" button in the controls panel to flatten the surface. Once flattend, use the same button (now labeled "roll") to obtain the original three-dimensional form. The location where these cylinders are "cut" can be adjusted with the "rot" value in the "orientation" section of the controls panel. The cut location is indicated by a red sphere.
+    </div>
+    <div class="content" style="text-align: center">
+      <button
+        class="button is-small is-primary is-outlined is-light"
+        onclick="tutorialControls.moveCameraToProjectionCenter()"
+      >
+        Move Camera to Projection Center
+      </button>
+    </div>
+    While the plane is flat by default and hence can be used as a map out-of-the-box once the projection has been calculated, the cylinder and the cone need to be unrolled first to obtain their flat, two-dimensional form. To construct the flat representation based on the current orientation, use the "unroll" button in the controls panel to flatten the surface. Once flattend, use the same button (now labeled "roll") to obtain the original three-dimensional form. The location where these cylinders are "cut" can be adjusted with the "rot" value in the "orientation" section of the controls panel. The cut location is indicated by a red sphere.
     <br>It is interesting to know that these three projection surfaces, the plane, the cylinder and the plane can be interpreted as special cases of the conical frustum. Use the following button to construct an open conical frustum (i.e., a conical frustum without caps on top and bottom).
     <div class="tut-button">
       <button onclick="tutorialControls.constructFrustum()">Frustum</button>
@@ -47,9 +56,12 @@ Based on this surface, you can use the following ways to adjust the parameters i
     Now that you learned about the three common projection surfaces and their
     connection, move on to the next section by clicking on the tab "Map
     Distortion Basics" at the top of this panel or click on the button below.
-    <div class="tut-button">
-      <button onclick="openTab('tut4-button', 'tut4')">
-        Map Distortion Basics
+    <div class="content">
+      <button class="button is-small is-left" @click="$emit('change-guide-before', guideIndex)">
+        Previous: Introduction
+      </button>
+      <button class="button is-small is-right" @click="$emit('change-guide-after', guideIndex)">
+        Next: Map distortions
       </button>
     </div>
   </div>
@@ -57,6 +69,7 @@ Based on this surface, you can use the following ways to adjust the parameters i
 
 <script>
 export default {
+  props: ["guideIndex"],
   computed: {
     surfaceAxisLength: {
       get() {
@@ -75,5 +88,5 @@ export default {
       }
     }
   }
-}
+};
 </script>

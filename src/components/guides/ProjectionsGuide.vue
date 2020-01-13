@@ -83,5 +83,17 @@ A projection similar to the Mercator projection can be constructed by placing th
         onclick="tutorialControls.setProjection('brauns pseudomercator')"
       >Braun's Pseudomercator</button>
     </div>
+
+    <div class="content">
+      <button class="button is-small is-left" @click="$emit('change-guide-before', guideIndex)">
+        Previous: Map distortions
+      </button>
+    </div>
   </div>
 </template>
+
+<script>
+export default {
+  props: ["guideIndex"]
+};
+</script>

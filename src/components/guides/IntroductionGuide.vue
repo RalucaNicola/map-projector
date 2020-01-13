@@ -50,41 +50,81 @@
       the surface while some do not.
     </div>
     <p>
-      If you move the camera to the position of the projection center you can
-      note how the borders of the sphere and the borders painted on the
+      If you
+      <span class="highlight">
+        move the camera to the position of the projection center
+      </span>
+      you can note how the borders of the sphere and the borders painted on the
       projection surface start to coincide. Move the camera slightly to
       emphasize this effect.
     </p>
-    <div class="content" style="text-align: center">
-      <button
-        class="button is-small is-primary is-outlined is-light"
-        onclick="tutorialControls.moveCameraToProjectionCenter()"
-      >
-        Move Camera to Projection Center
-      </button>
-    </div>
     <p>
       The position of the projection center is an important aspect when
-      constructing map projections. With this slider you can adjust the offset
-      value of the projection center:
+      constructing map projections. With the slider below you can adjust the
+      offset value of the projection center. Observe how different positions of
+      the projection center change the resulting projection and the geometry of
+      the rays.
     </p>
     <div class="slider-content">
-      <b-slider size="is-small" :min="-2" :max="2" :step="0.1">
+      <b-field label="Projection center offset"></b-field>
+      <b-slider
+        size="is-small"
+        :min="-2"
+        :max="2"
+        :step="0.1"
+        v-model="pCenterOffset"
+      >
         <template v-for="val in [-2, -1, 0, 1, 2]">
           <b-slider-tick :value="val" :key="val">{{ val }}</b-slider-tick>
         </template>
       </b-slider>
     </div>
+    <div class="slider-content">
+      <b-field label="Projection center Scale"></b-field>
+      <b-slider
+        size="is-small"
+        :min="0.01"
+        :max="2"
+        :step="0.1"
+        v-model="pCenterScale"
+      >
+        <template v-for="val in [0.01, 0.5, 1, 2]">
+          <b-slider-tick :value="val" :key="val">{{ val }}</b-slider-tick>
+        </template>
+      </b-slider>
+    </div>
     <p>
-      Observe how different positions of the projection center change the
-      resulting projection and the geometry of the rays. Now that you learned
-      the basics of how map projections are constructed, you can start learning
-      more in depth about projection surfaces.
+      Now that you learned the basics of how map projections are constructed,
+      you can start learning more in depth about projection surfaces.
     </p>
-    <div class="content" style="text-align: center">
-      <button class="button is-small">
+    <div class="content">
+      <button class="button is-small is-right" @click="$emit('change-guide-after', guideIndex)">
         Next: Projection surfaces
       </button>
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  props: ["guideIndex"],
+  computed: {
+    pCenterOffset: {
+      get() {
+        return this.$store.state.projectionCenter.offset;
+      },
+      set(value) {
+        this.$store.commit("changePCenterOffset", value);
+      }
+    },
+    pCenterScale: {
+      get() {
+        return this.$store.state.projectionCenter.scale;
+      },
+      set(value) {
+        this.$store.commit("changePCenterScale", value);
+      }
+    }
+  }
+};
+</script>

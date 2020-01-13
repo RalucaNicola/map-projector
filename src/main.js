@@ -47,6 +47,12 @@ const store = new Vuex.Store({
     },
     changeSurfaceOffset(state, offset) {
       state.surface.offset = offset;
+    },
+    changePCenterOffset(state, offset) {
+      state.projectionCenter.offset = offset;
+    },
+    changePCenterScale(state, scale) {
+      state.projectionCenter.scale = scale;
     }
   }
 });

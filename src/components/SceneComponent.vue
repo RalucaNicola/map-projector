@@ -125,6 +125,16 @@ export default {
         case "changeSurfaceOffset":
           this.surface.setGeometryOffset(state.surface.offset);
           break;
+        case "changePCenterOffset":
+          this.projectionCenter.setOffset(state.projectionCenter.offset);
+          break;
+        case "changePCenterScale":
+          this.projectionCenter.reconstructTorus(state.projectionCenter.scale);
+          this.surface.setProjectionTorusParams(
+            this.projectionCenter.scale,
+            this.projectionCenter.lightCenter.matrixWorld
+          );
+          break;
       }
     });
   }
