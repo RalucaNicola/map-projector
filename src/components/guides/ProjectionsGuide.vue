@@ -1,3 +1,4 @@
+/* eslint-disable */
 <template>
   <div id="tut3" class="tabcontent">
     In this segment, we will briefly discuss some named map projections.

@@ -2,6 +2,14 @@
   <div class="scene-component">
     <div class="scene" ref="glcanvas"></div>
     <div class="scene-menu">
+      <div class="scene-buttons">
+        <button
+        class="button is-small is-primary"
+        v-on:click="resetProjectionParameters"
+      >
+        Reset parameters
+      </button>
+      </div>
       <b-checkbox v-model="tissotEnabled">
         Tissot indicator
       </b-checkbox>
@@ -11,6 +19,7 @@
       <b-checkbox v-model="countriesEnabled">
         Countries
       </b-checkbox>
+
     </div>
   </div>
 </template>
@@ -21,6 +30,7 @@ import GLCanvas from "../scene-utils/GLCanvas.js";
 import Earth from "../scene-utils/Earth.js";
 import Surface from "../scene-utils/Surface.js";
 import ProjectionCenter from "../scene-utils/ProjectionCenter.js";
+import { initialParameters } from "../parameters.js";
 
 export default {
   mounted() {
@@ -40,6 +50,7 @@ export default {
       }.bind(this)
     );
     this.initializeStoreProps();
+    this.resetProjectionParameters();
     this.animate();
   },
   computed: {
@@ -50,8 +61,7 @@ export default {
       set() {
         this.$store.commit("toggleGrid");
         const status = this.$store.state.gridEnabled;
-        this.earth.toggleGridTexture(status);
-        this.surface.toggleGridTexture(status);
+        this.toggleGridTexture(status);
       }
     },
     countriesEnabled: {
@@ -61,8 +71,7 @@ export default {
       set() {
         this.$store.commit("toggleCountries");
         const status = this.$store.state.countriesEnabled;
-        this.earth.toggleCountriesTexture(status);
-        this.surface.toggleCountriesTexture(status);
+        this.toggleCountriesTexture(status);
       }
     },
     tissotEnabled: {
@@ -72,12 +81,23 @@ export default {
       set() {
         this.$store.commit("toggleTissot");
         const status = this.$store.state.tissotEnabled;
-        this.earth.toggleTissotTexture(status);
-        this.surface.toggleTissotTexture(status);
+        this.toggleTissotTexture(status);
       }
     }
   },
   methods: {
+    toggleTissotTexture(value) {
+      this.earth.toggleTissotTexture(value);
+      this.surface.toggleTissotTexture(value);
+    },
+    toggleCountriesTexture(value) {
+      this.earth.toggleCountriesTexture(value);
+      this.surface.toggleCountriesTexture(value);
+    },
+    toggleGridTexture(value) {
+      this.earth.toggleGridTexture(value);
+      this.surface.toggleGridTexture(value);
+    },
     animate() {
       let delta = this.clock.getDelta();
       this.canvas.update(delta);
@@ -91,29 +111,24 @@ export default {
     initializeStoreProps() {
       const state = this.$store.state;
 
-      this.earth.toggleTissotTexture(state.tissotEnabled);
-      this.surface.toggleTissotTexture(state.tissotEnabled);
-      this.earth.toggleCountriesTexture(state.countriesEnabled);
-      this.surface.toggleCountriesTexture(state.countriesEnabled);
-      this.earth.toggleGridTexture(state.gridEnabled);
-      this.surface.toggleGridTexture(state.gridEnabled);
+      this.toggleTissotTexture(state.tissotEnabled);
+      this.toggleCountriesTexture(state.countriesEnabled);
+      this.toggleGridTexture(state.gridEnabled);
+    },
+    resetProjectionParameters() {
+      const { surface, projectionCenter } = { ...initialParameters };
 
-      const { axisLength, offset, topRadius, bottomRadius } = state.surface;
-      this.surface.setAxisLength(axisLength);
-      this.surface.setGeometryOffset(offset);
+      const { axisLength, offset, topRadius, bottomRadius } = surface;
+      this.$store.commit("changeSurfaceAxisLength", axisLength);
+      this.$store.commit("changeSurfaceOffset", offset);
       this.surface.setTopRadius(topRadius);
       this.surface.setBottomRadius(bottomRadius);
 
-      const {
-        scale,
-        latitude,
-        longitude,
-        offset: cOffset
-      } = state.projectionCenter;
-      this.projectionCenter.reconstructTorus(scale);
+      const { scale, latitude, longitude, offset: cOffset } = projectionCenter;
+      this.$store.commit("changePCenterOffset", cOffset);
+      this.$store.commit("changePCenterScale", scale);
       this.projectionCenter.setLatitude(latitude);
       this.projectionCenter.setLongitude(longitude);
-      this.projectionCenter.setOffset(cOffset);
     }
   },
   created() {
@@ -154,9 +169,13 @@ canvas {
 
 .scene-menu {
   position: relative;
-  bottom: 30px;
+  bottom: 70px;
   right: 10px;
   text-align: right;
   font-size: 0.9em;
+}
+
+.scene-buttons {
+  padding-bottom: 1em;
 }
 </style>

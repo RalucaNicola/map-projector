@@ -5,6 +5,7 @@ import App from "./App.vue";
 import "./registerServiceWorker";
 import "@/styles/custom-bulma.scss";
 import "@/styles/app-style.scss";
+import { initialParameters } from "./parameters.js";
 
 Vue.config.productionTip = false;
 Vue.use(Vuex);
@@ -17,16 +18,10 @@ const store = new Vuex.Store({
     countriesEnabled: true,
     tissotEnabled: false,
     surface: {
-      axisLength: 0.01,
-      topRadius: 0.01,
-      bottomRadius: 4,
-      offset: 1
+      ...initialParameters.surface
     },
     projectionCenter: {
-      scale: 0.01,
-      latitude: 0,
-      longitude: 90,
-      offset: 0
+      ...initialParameters.projectionCenter
     }
   },
   mutations: {

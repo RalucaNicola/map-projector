@@ -3,25 +3,25 @@
     <IntroductionGuide
       v-if="activeGuide === menuSteps[0].type"
       v-on:change-guide-after="setActiveNext"
-      :guideIndex=0
+      :guideIndex="0"
     ></IntroductionGuide>
     <SurfacesGuide
       v-if="activeGuide === menuSteps[1].type"
       v-on:change-guide-before="setActivePrevious"
       v-on:change-guide-after="setActiveNext"
-      :guideIndex=1
-      ></SurfacesGuide>
+      :guideIndex="1"
+    ></SurfacesGuide>
     <DistortionsGuide
       v-if="activeGuide === menuSteps[2].type"
       v-on:change-guide-before="setActivePrevious"
       v-on:change-guide-after="setActiveNext"
-      :guideIndex=2
+      :guideIndex="2"
     ></DistortionsGuide>
     <ProjectionsGuide
       v-if="activeGuide === menuSteps[3].type"
       v-on:change-guide-before="setActivePrevious"
       v-on:change-guide-after="setActiveNext"
-      :guideIndex=3
+      :guideIndex="3"
     ></ProjectionsGuide>
   </div>
 </template>

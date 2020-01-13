@@ -98,7 +98,10 @@
       you can start learning more in depth about projection surfaces.
     </p>
     <div class="content">
-      <button class="button is-small is-right" @click="$emit('change-guide-after', guideIndex)">
+      <button
+        class="button is-small is-right"
+        @click="$emit('change-guide-after', guideIndex)"
+      >
         Next: Projection surfaces
       </button>
     </div>
