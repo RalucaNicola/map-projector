@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import * as THREE from "three";
+import { Clock, Vector3 } from "three";
 import GLCanvas from "../scene-utils/GLCanvas.js";
 import Earth from "../scene-utils/Earth.js";
 import Surface from "../scene-utils/Surface.js";
@@ -42,7 +42,7 @@ export default {
       this.projectionCenter.scale,
       this.projectionCenter.lightCenter.matrixWorld
     );
-    this.clock = new THREE.Clock();
+    this.clock = new Clock();
     window.addEventListener(
       "resize",
       function() {
@@ -129,6 +129,13 @@ export default {
       this.$store.commit("changePCenterScale", scale);
       this.projectionCenter.setLatitude(latitude);
       this.projectionCenter.setLongitude(longitude);
+    },
+    lookAt(mesh, distanceFactor) {
+      const direction = new Vector3();
+      mesh.getWorldDirection(direction);
+      const position = mesh.position;
+      this.canvas.camera.position.copy(position).add(direction.multiplyScalar(distanceFactor));
+      this.canvas.camera.lookAt(position);
     }
   },
   created() {
@@ -150,6 +157,21 @@ export default {
             this.projectionCenter.lightCenter.matrixWorld
           );
           break;
+        case "setCamera": {
+          if (state.cameraPosition === "projectionCenter") {
+            this.canvas.camera.position.copy(new Vector3(0, 0, 0));
+            this.canvas.orbitControls.target = new Vector3(0, 0, 0.1);
+          }
+          if (state.cameraPosition === "lookAtProjectionCenter") {
+            this.lookAt(this.projectionCenter.earthCenter, 1);
+          }
+          if (state.cameraPosition === "lookAtEarth") {
+            this.lookAt(this.earth.earthMesh, 3);
+          }
+          if (state.cameraPosition === "lookAtSurface") {
+            this.lookAt(this.surface.mesh, 3);
+          }
+        }
       }
     });
   }

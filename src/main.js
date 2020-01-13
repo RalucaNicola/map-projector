@@ -17,6 +17,7 @@ const store = new Vuex.Store({
     gridEnabled: true,
     countriesEnabled: true,
     tissotEnabled: false,
+    cameraPosition: null,
     surface: {
       ...initialParameters.surface
     },
@@ -48,6 +49,9 @@ const store = new Vuex.Store({
     },
     changePCenterScale(state, scale) {
       state.projectionCenter.scale = scale;
+    },
+    setCamera(state, cameraPosition) {
+      state.cameraPosition = cameraPosition;
     }
   }
 });

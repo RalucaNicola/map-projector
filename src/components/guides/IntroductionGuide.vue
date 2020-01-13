@@ -22,15 +22,15 @@
     </p>
     <ul>
       <li>
-        A <span class="highlight">simplified representation of the earth</span>,
+        A <span class="highlight" v-on:click="lookAtEarth">simplified representation of the earth</span>,
         typically in the shape of a sphere or a spheroid.
       </li>
       <li>
-        A <span class="highlight">projection center</span>, typically
+        A <span class="highlight" v-on:click="lookAtProjectionCenter">projection center</span>, typically
         represented as a point.
       </li>
       <li>
-        A <span class="highlight">projection surface</span>, typically in the
+        A <span class="highlight" v-on:click="lookAtSurface">projection surface</span>, typically in the
         shape of a plane, cylinder or cone. In the simplest case, the map
         surface is directly represented as a flat plane as shown in the 3D scene
         on the right.
@@ -51,7 +51,7 @@
     </div>
     <p>
       If you
-      <span class="highlight">
+      <span class="highlight" v-on:click="setCameraToProjectionCenter">
         move the camera to the position of the projection center
       </span>
       you can note how the borders of the sphere and the borders painted on the
@@ -127,6 +127,20 @@ export default {
       set(value) {
         this.$store.commit("changePCenterScale", value);
       }
+    }
+  },
+  methods: {
+    setCameraToProjectionCenter() {
+      this.$store.commit("setCamera", "projectionCenter");
+    },
+    lookAtProjectionCenter() {
+      this.$store.commit("setCamera", "lookAtProjectionCenter");
+    },
+    lookAtEarth() {
+      this.$store.commit("setCamera", "lookAtEarth");
+    },
+    lookAtSurface() {
+      this.$store.commit("setCamera", "lookAtSurface");
     }
   }
 };
