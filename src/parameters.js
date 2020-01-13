@@ -11,8 +11,6 @@ const initialParameters = {
     longitude: 90,
     offset: 0
   }
-}
-
-export {
-  initialParameters
 };
+
+export { initialParameters };

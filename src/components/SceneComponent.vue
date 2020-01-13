@@ -4,11 +4,11 @@
     <div class="scene-menu">
       <div class="scene-buttons">
         <button
-        class="button is-small is-primary"
-        v-on:click="resetProjectionParameters"
-      >
-        Reset parameters
-      </button>
+          class="button is-small is-primary"
+          v-on:click="resetProjectionParameters"
+        >
+          Reset parameters
+        </button>
       </div>
       <b-checkbox v-model="tissotEnabled">
         Tissot indicator
@@ -19,7 +19,6 @@
       <b-checkbox v-model="countriesEnabled">
         Countries
       </b-checkbox>
-
     </div>
   </div>
 </template>
@@ -134,7 +133,9 @@ export default {
       const direction = new Vector3();
       mesh.getWorldDirection(direction);
       const position = mesh.position;
-      this.canvas.camera.position.copy(position).add(direction.multiplyScalar(distanceFactor));
+      this.canvas.camera.position
+        .copy(position)
+        .add(direction.multiplyScalar(distanceFactor));
       this.canvas.camera.lookAt(position);
     }
   },
